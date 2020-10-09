@@ -1,5 +1,7 @@
 #!/bin/bash
 
+AWS_PAGER=""
+
 PREFIX=$1
 REGION=$2
 

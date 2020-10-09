@@ -1,5 +1,7 @@
 #!/bin/bash
 
+AWS_PAGER=""
+
 PREFIX=$1
 REGION=$2
 
@@ -14,5 +16,5 @@ else
   REG="--region $REGION"
 fi
 
-aws $REG ec2 stop-instances --instance-ids $(aws ec2 describe-instances --filters  "Name=instance-state-name,Values=running" --filters "Name=tag:Name,Values=${PREFIX}*" --query "Reservations[].Instances[].[InstanceId]" --output text | tr '\n' ' ')
+aws $REG ec2 stop-instances --instance-ids $(aws $REG ec2 describe-instances --filters  "Name=instance-state-name,Values=running" --filters "Name=tag:Name,Values=${PREFIX}*" --query "Reservations[].Instances[].[InstanceId]" --output text | tr '\n' ' ')
 
