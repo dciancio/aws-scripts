@@ -14,5 +14,5 @@ else
   REG="--region $REGION"
 fi
 
-aws $REG ec2 describe-instances --filters "Name=tag:Name,Values=${PREFIX}*" --query "Reservations[*].Instances[*].[Tags[?Key=='Name']|[0].Value,InstanceId,State.Name,PrivateIpAddress,PublicIpAddress,PublicDnsName]" --output text | sort
+aws $REG ec2 describe-instances --filters "Name=tag:Name,Values=${PREFIX}*" --query "Reservations[*].Instances[*].[Tags[?Key=='Name']|[0].Value,InstanceId,State.Name,PrivateIpAddress,PublicIpAddress,PublicDnsName] | sort_by(@, &@[0][0])" --output table 
 
